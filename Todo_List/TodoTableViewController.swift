@@ -18,16 +18,14 @@ class TodoTableViewController: UITableViewController {
         let todo1 = Todo()
         todo1.title = "Get this fucking course done!"
         todo1.important = true
-        
+
         let todo2 = Todo()
         todo2.title = "Finish more node courses"
         todo2.important = true
-        
+
         todos = [todo1, todo2]
 
     }
-
-    // MARK: - Table view data source
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,14 +48,25 @@ class TodoTableViewController: UITableViewController {
         return cell
     }
     
+    
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "moveToComplete", sender: nil)
+        let currentTodo = todos[indexPath.row]
+        let selectedTodo = currentTodo
+        performSegue(withIdentifier: "moveToComplete", sender: selectedTodo)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let createVC = segue.destination as? CreateTodoViewController {
             createVC.todoTableVC = self
         }
+        
+        
+        if let completeVC = segue.destination as? CompleteViewController {
+            if let selectedTodo = sender as? Todo {
+                completeVC.todo = selectedTodo
+            }
+        }
+        //
     }
-    
 }
