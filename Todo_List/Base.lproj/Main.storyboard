@@ -42,17 +42,17 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="XzF-Q5-nBU" kind="show" id="39M-Hh-odZ"/>
+                        <segue destination="XzF-Q5-nBU" kind="show" identifier="moveToComplete" id="39M-Hh-odZ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZgK-Rp-a2m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-466" y="-282"/>
         </scene>
-        <!--View Controller-->
+        <!--Complete View Controller-->
         <scene sceneID="K8D-mE-aHa">
             <objects>
-                <viewController id="XzF-Q5-nBU" sceneMemberID="viewController">
+                <viewController id="XzF-Q5-nBU" customClass="CompleteViewController" customModule="Todo_List" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HdN-S3-GQL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -66,6 +66,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alE-aZ-2QX">
                                 <rect key="frame" x="154" y="122" width="67" height="30"/>
                                 <state key="normal" title="Complete"/>
+                                <connections>
+                                    <action selector="completeAction:" destination="XzF-Q5-nBU" eventType="touchUpInside" id="B9b-Ge-QmV"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -78,6 +81,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KGK-Gz-wHr"/>
                     </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="32G-W5-H9y" id="dYZ-Pc-bFk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w8n-aU-f2s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
