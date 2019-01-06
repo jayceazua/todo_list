@@ -15,15 +15,6 @@ class TodoTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let todo1 = Todo()
-        todo1.title = "Get this fucking course done!"
-        todo1.important = true
-
-        let todo2 = Todo()
-        todo2.title = "Finish more node courses"
-        todo2.important = true
-
-        todos = [todo1, todo2]
 
     }
 
