@@ -30,6 +30,7 @@ class CreateTodoViewController: UIViewController {
         
         todoTableVC?.todos.append(newTodo)
         todoTableVC?.tableView.reloadData()
+        navigationController?.popViewController(animated: true)
     }
     
 
