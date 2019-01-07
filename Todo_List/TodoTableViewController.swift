@@ -10,41 +10,27 @@ import UIKit
 
 class TodoTableViewController: UITableViewController {
     
-    var todoCoreDatas = [TodoCoreData]()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        getTodos()
+    var todos = [Todo]()
 
-    }
-    
-    // getting data from the coredata
-    func getTodos() {
-        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
-            if let todosFromCoreData = try? context.fetch(TodoCoreData.fetchRequest()) {
-                if let todos = todosFromCoreData as? [TodoCoreData] {
-                    todoCoreDatas = todos
-                    tableView.reloadData()
-                }
-            }
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+
     }
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return todoCoreDatas.count
+        return todos.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        let currentTodo = todoCoreDatas[indexPath.row]
+        let currentTodo = todos[indexPath.row]
         
         if currentTodo.important {
-            if let title = currentTodo.title {
-                cell.textLabel?.text = "⁉️\(title)"
-            }
-            
+            cell.textLabel?.text = "⁉️\(currentTodo.title)"
         }
         else {
             cell.textLabel?.text = currentTodo.title
@@ -56,7 +42,7 @@ class TodoTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentTodo = todoCoreDatas[indexPath.row]
+        let currentTodo = todos[indexPath.row]
         let selectedTodo = currentTodo
         performSegue(withIdentifier: "moveToComplete", sender: selectedTodo)
     }
@@ -68,11 +54,10 @@ class TodoTableViewController: UITableViewController {
         
         
         if let completeVC = segue.destination as? CompleteViewController {
-            /*
             if let selectedTodo = sender as? Todo {
                 completeVC.todo = selectedTodo
             }
-            */
         }
+        //
     }
 }

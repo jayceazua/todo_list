@@ -12,11 +12,11 @@ class CompleteViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-//    var todo = Todo()
+    var todo = Todo()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        titleLabel.text = todo.title
+        titleLabel.text = todo.title
 
     }
     
