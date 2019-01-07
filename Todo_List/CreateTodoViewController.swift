@@ -28,6 +28,7 @@ class CreateTodoViewController: UIViewController {
             if let title = titleTextField.text {
                 newTodo.title = title
             }
+            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         }
         
 //        todoTableVC?.todos.append(newTodo)

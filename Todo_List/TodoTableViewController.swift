@@ -10,10 +10,9 @@ import UIKit
 
 class TodoTableViewController: UITableViewController {
     
-    var todos = [Todo]()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var todoCoreDatas = [TodoCoreData]()
+    
+    override func viewWillAppear(_ animated: Bool) {
         getTodos()
 
     }
@@ -23,7 +22,8 @@ class TodoTableViewController: UITableViewController {
         if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
             if let todosFromCoreData = try? context.fetch(TodoCoreData.fetchRequest()) {
                 if let todos = todosFromCoreData as? [TodoCoreData] {
-                    print(todos)
+                    todoCoreDatas = todos
+                    tableView.reloadData()
                 }
             }
         }
@@ -32,16 +32,19 @@ class TodoTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return todos.count
+        return todoCoreDatas.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        let currentTodo = todos[indexPath.row]
+        let currentTodo = todoCoreDatas[indexPath.row]
         
         if currentTodo.important {
-            cell.textLabel?.text = "⁉️\(currentTodo.title)"
+            if let title = currentTodo.title {
+                cell.textLabel?.text = "⁉️\(title)"
+            }
+            
         }
         else {
             cell.textLabel?.text = currentTodo.title
@@ -53,7 +56,7 @@ class TodoTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentTodo = todos[indexPath.row]
+        let currentTodo = todoCoreDatas[indexPath.row]
         let selectedTodo = currentTodo
         performSegue(withIdentifier: "moveToComplete", sender: selectedTodo)
     }
@@ -65,10 +68,11 @@ class TodoTableViewController: UITableViewController {
         
         
         if let completeVC = segue.destination as? CompleteViewController {
+            /*
             if let selectedTodo = sender as? Todo {
                 completeVC.todo = selectedTodo
             }
+            */
         }
-        //
     }
 }
