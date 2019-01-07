@@ -14,8 +14,19 @@ class TodoTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getTodos()
 
+    }
+    
+    // getting data from the coredata
+    func getTodos() {
+        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+            if let todosFromCoreData = try? context.fetch(TodoCoreData.fetchRequest()) {
+                if let todos = todosFromCoreData as? [TodoCoreData] {
+                    print(todos)
+                }
+            }
+        }
     }
 
 

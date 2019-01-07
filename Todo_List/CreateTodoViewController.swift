@@ -21,15 +21,17 @@ class CreateTodoViewController: UIViewController {
     }
     
     @IBAction func addAction(_ sender: Any) {
-        let newTodo = Todo()
-        newTodo.important = importantSwitchField.isOn
-        
-        if let title = titleTextField.text {
-            newTodo.title = title
+        // bridge to get into the coredata - save things into  
+        if let context  = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+            let newTodo = TodoCoreData(context: context)
+            newTodo.important = importantSwitchField.isOn
+            if let title = titleTextField.text {
+                newTodo.title = title
+            }
         }
         
-        todoTableVC?.todos.append(newTodo)
-        todoTableVC?.tableView.reloadData()
+//        todoTableVC?.todos.append(newTodo)
+//        todoTableVC?.tableView.reloadData()
         navigationController?.popViewController(animated: true)
     }
     
