@@ -36,7 +36,6 @@ class TodoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         let currentTodo = todos[indexPath.row]
-        
         if currentTodo.important {
             if let title = currentTodo.title {
                 cell.textLabel?.text = "⁉️\(title)"
@@ -45,9 +44,8 @@ class TodoTableViewController: UITableViewController {
         else {
             cell.textLabel?.text = currentTodo.title
         }
-
         return cell
-    }
+    } // end of function
     
     
     
@@ -55,21 +53,18 @@ class TodoTableViewController: UITableViewController {
         let currentTodo = todos[indexPath.row]
         let selectedTodo = currentTodo
         performSegue(withIdentifier: "moveToComplete", sender: selectedTodo)
-    }
+    } // end of function
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let createVC = segue.destination as? CreateTodoViewController {
             createVC.todoTableVC = self
         }
-        
-        
         if let completeVC = segue.destination as? CompleteViewController {
-            
             if let selectedTodo = sender as? Todo {
                 completeVC.todo = selectedTodo
             }
- 
         }
-        
-    }
+    } // end of prepare function
 }
