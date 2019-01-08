@@ -64,11 +64,11 @@ class TodoTableViewController: UITableViewController {
         
         
         if let completeVC = segue.destination as? CompleteViewController {
-            /*
+            
             if let selectedTodo = sender as? Todo {
                 completeVC.todo = selectedTodo
             }
-            */
+ 
         }
         
     }
