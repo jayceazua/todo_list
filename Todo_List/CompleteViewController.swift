@@ -35,6 +35,15 @@ class CompleteViewController: UIViewController {
     }
     
     @IBAction func completeAction(_ sender: Any) {
+        // delete todo
+        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+            if let todo = todo {
+                context.delete(todo)
+            }
+            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        }
+        // pop back
+        navigationController?.popViewController(animated: true)
         
     }
     
