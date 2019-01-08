@@ -11,13 +11,21 @@ import UIKit
 class TodoTableViewController: UITableViewController {
     
     var todos = [Todo]()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getTodos()
     }
 
+    func getTodos() {
+        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+            if let todosFromCoreData = try? context.fetch(Todo.fetchRequest()) {
+                if let tempTodos = todosFromCoreData as? [Todo] {
+                    todos = tempTodos
+                    tableView.reloadData()
+                }
+            }
+        }
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -30,7 +38,9 @@ class TodoTableViewController: UITableViewController {
         let currentTodo = todos[indexPath.row]
         
         if currentTodo.important {
-            cell.textLabel?.text = "⁉️\(currentTodo.title)"
+            if let title = currentTodo.title {
+                cell.textLabel?.text = "⁉️\(title)"
+            }
         }
         else {
             cell.textLabel?.text = currentTodo.title
@@ -54,10 +64,12 @@ class TodoTableViewController: UITableViewController {
         
         
         if let completeVC = segue.destination as? CompleteViewController {
+            /*
             if let selectedTodo = sender as? Todo {
                 completeVC.todo = selectedTodo
             }
+            */
         }
-        //
+        
     }
 }
