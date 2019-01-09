@@ -45,7 +45,7 @@ class TodoTableViewController: UITableViewController {
             cell.textLabel?.text = currentTodo.title
         }
         return cell
-    } // end of function
+    } // end of functiond
     
     
     
